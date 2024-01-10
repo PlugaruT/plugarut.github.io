@@ -3,19 +3,17 @@ import * as Plugin from "./quartz/plugins"
 
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🪴 Quartz 4.0",
+    pageTitle: "Tudor's Notes",
     enableSPA: true,
     enablePopovers: true,
-    analytics: {
-      provider: "plausible",
-    },
-    baseUrl: "quartz.jzhao.xyz",
+    analytics: null,
+    baseUrl: "plugaru.me",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        header: "Onest",
+        body: "Onest",
         code: "IBM Plex Mono",
       },
       colors: {
