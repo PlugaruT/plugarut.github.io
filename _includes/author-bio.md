@@ -1,18 +1,12 @@
-# Hi, I'm Tudor.
+# Hi, I'm Tudor
 
-I do **software engineering** for a living with _Python_.
+I do **software engineering** for a living.
 
-Currently building AI-powered customer support tools at [Gorgias](https://gorgias.com/), working on interesting challenges in:
-- 🤖 Machine Learning & Natural Language Processing
-- 🏗️ Distributed systems and microservices
-- 📊 Data pipelines and analytics
-- 🚀 Developer experience and tooling
-
-Previously crafted e-commerce experiences at **made.com**, where I learned the art of scaling systems that handle millions of furniture-loving customers.
+Currently, I'm part of platform streaming team at [Gorgias](https://gorgias.com/) where I'm building real-time features using Python, Apache Flink and Apache Kafka.
 
 When I'm not coding, you might find me:
 - Contributing to open source projects
-- Writing about tech and remote work
-- Exploring the beautiful landscapes of Moldova 🇲🇩
+- Reading books, here's my [Goodreads](https://www.goodreads.com/user/show/52045481-tudor-plugaru) profile
+- Running, hiking or playing padel, here's my [Strava](https://www.strava.com/athletes/80622861) profile
 
-Feel free to reach out if you want to discuss Python, distributed systems, or the best coffee shops for remote work!
+Feel free to [reach out](mailto:tudor@plugaru.me) if you want to discuss Python, distributed systems, or any other tech topics.
