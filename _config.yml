@@ -9,11 +9,8 @@ url: "https://plugaru.me" # the base hostname & protocol for your site
 # Personal Information
 author:
   name: "Tudor Plugaru"
-  location: "Moldova"
-  bio: "I do software engineering for a living with Python."
+  location: "Republic of Moldova"
   avatar: "/assets/images/profile.jpeg"
-  intro_text: "Hi, I'm Tudor."
-  
 
 # Social Media Links
 social:
@@ -42,7 +39,7 @@ work_experience:
 education:
   - period: "2013 — 2017"
     degree: "Bachelor's degree of Systems and Computer Engineering at Technical University of Moldova"
-    location: "Moldova"
+    location: "Republic of Moldova"
     project: "Final Research Project: 'Key Performance Indicators Management System'"
 
 # Build settings

@@ -1,3 +1,5 @@
+# Hi, I'm Tudor.
+
 I do **software engineering** for a living with _Python_.
 
 Currently building AI-powered customer support tools at [Gorgias](https://gorgias.com/), working on interesting challenges in:

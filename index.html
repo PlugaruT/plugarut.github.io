@@ -33,8 +33,6 @@ layout: default
     <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile__avatar">
     {% endif %}
     
-    <h1 class="profile__greeting">{{ site.author.intro_text }}</h1>
-    
     <div class="profile__bio">
       {% capture bio_content %}{% include author-bio.md %}{% endcapture %}
       {{ bio_content | markdownify }}
@@ -94,7 +92,7 @@ layout: default
   <div class="resume">
     <div class="resume__header">
       <h1 class="resume__name">{{ site.author.name }}</h1>
-      <p class="resume__location">{{ site.author.location }}</p>
+      <!-- <p class="resume__location">{{ site.author.location }}</p> -->
     </div>
     
     <!-- Work Experience -->
