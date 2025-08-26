@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  {% seo %}
+  
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  
+  <!-- Preload critical resources -->
+  {% if site.author.avatar %}
+  <link rel="preload" href="{{ site.author.avatar | relative_url }}" as="image">
+  {% endif %}
+  
+  <!-- Custom CSS variables -->
+  <style>
+    :root {
+      --bg-color: {{ site.theme_colors.background_color | default: '#ffffff' }};
+      --text-color: {{ site.theme_colors.text_color | default: '#000000' }};
+      --secondary-text-color: {{ site.theme_colors.secondary_text_color | default: '#666666' }};
+      --font-family: {{ site.theme_colors.font_family | default: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif' }};
+      --font-family-mono: {{ site.theme_colors.font_family_mono | default: '"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace' }};
+    }
+  </style>
+</head>
+
+<body>
+  {{ content }}
+</body>
+</html>

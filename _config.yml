@@ -1,0 +1,75 @@
+# Site settings
+title: "Tudor Plugaru"
+email: contact@tudor.dev
+description: >-
+  Go beyond the link in bio. Tell a story.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://plugaru.me" # the base hostname & protocol for your site
+
+# Personal Information
+author:
+  name: "Tudor Plugaru"
+  location: "Moldova"
+  bio: "I do software engineering for a living with Python."
+  avatar: "/assets/images/profile.jpeg"
+  intro_text: "Hi, I'm Tudor."
+  
+# Theme Configuration (custom variables, not a gem theme)
+theme_colors:
+  background_color: "#fffcf0"
+  text_color: "#100f0f"
+  secondary_text_color: "#6f6e69"
+  font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+
+# Social Media Links
+social:
+  github: "PlugaruT"
+  linkedin: "plugarutudor"
+  twitter: "PlugaruTudor"
+  bluesky: "tudor.bsky.social"
+  # website: "https://plugaru.me/"
+
+# Work Experience
+work_experience:
+  - period: "Oct 2020 — Now"
+    position: "Senior Software Engineer"
+    company: "Gorgias"
+    company_url: "https://www.gorgias.com"
+    location: "Remote"
+    details_file: "gorgias.md"
+  - period: "Oct 2018 — Mar 2020"
+    position: "Software Engineer"
+    company: "made.com"
+    company_url: "https://www.made.com"
+    location: "Remote"
+    details_file: "made.md"
+
+# Education
+education:
+  - period: "2013 — 2017"
+    degree: "Bachelor's degree of Systems and Computer Engineering at Technical University of Moldova"
+    location: "Moldova"
+    project: "Final Research Project: 'Key Performance Indicators Management System'"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:title/
+
+# Sass/SCSS configuration
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .gitignore

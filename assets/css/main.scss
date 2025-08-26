@@ -1,0 +1,445 @@
+---
+---
+
+/* The Gist Of - Minimalistic Design */
+
+/* CSS Variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --secondary-text-color: #666666;
+  --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  font-size: 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Navigation */
+.nav {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.nav__links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav__link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 16px;
+  transition: opacity 0.2s ease;
+  position: relative;
+}
+
+.nav__link:hover {
+  opacity: 0.7;
+}
+
+.nav__link--active {
+  opacity: 1;
+}
+
+.nav__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--text-color);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Initially hide resume view to prevent flash on page load */
+#resume-view {
+  display: none;
+}
+
+/* Show resume view when JavaScript has loaded */
+.js-loaded #resume-view {
+  display: flex;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.main--hidden {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+.main--hidden-right {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+
+/* Profile (About view) */
+.profile {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2rem;
+}
+
+.profile__greeting {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.profile__bio {
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  text-align: left;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile__bio p {
+  margin-bottom: 1rem;
+}
+
+.profile__bio p:last-child {
+  margin-bottom: 0;
+}
+
+.profile__bio ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.profile__bio li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.profile__bio li:before {
+  position: absolute;
+  left: 0;
+}
+
+.profile__bio a {
+  color: var(--text-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.profile__bio a:hover {
+  opacity: 0.7;
+}
+
+.profile__bio strong {
+  font-weight: 600;
+}
+
+.profile__bio em {
+  font-style: italic;
+}
+
+/* Social links */
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.social__link {
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.social__link:hover {
+  opacity: 1;
+}
+
+.social__link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Resume view */
+.resume {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.resume__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.resume__name {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.resume__location {
+  font-size: 16px;
+  color: var(--secondary-text-color);
+}
+
+.resume__section {
+  margin-bottom: 3rem;
+}
+
+.resume__section:last-child {
+  margin-bottom: 0;
+}
+
+.resume__section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+}
+
+.resume__item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: start;
+}
+
+.resume__item:last-child {
+  margin-bottom: 0;
+}
+
+.resume__item-period {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  font-weight: 400;
+}
+
+.resume__item-content {
+  min-width: 0;
+}
+
+.resume__item-title {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.resume__item-company {
+  color: var(--text-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: opacity 0.2s ease;
+}
+
+.resume__item-company:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+.resume__item-location {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  margin-bottom: 0.5rem;
+}
+
+.resume__item-project {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Enhanced work experience details */
+.resume__item-details {
+  margin-top: 1rem;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.resume__item-details h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.resume__item-details ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.resume__item-details li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+  color: var(--secondary-text-color);
+}
+
+.resume__item-details li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--secondary-text-color);
+}
+
+.resume__item-details p {
+  margin-bottom: 0.75rem;
+  color: var(--secondary-text-color);
+}
+
+.resume__item-details code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: var(--font-family-mono);
+  color: var(--text-color);
+}
+
+.resume__item-details strong {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.resume__item-details a {
+  color: var(--text-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.resume__item-details a:hover {
+  opacity: 0.7;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.footer__credit {
+  font-size: 12px;
+  color: var(--secondary-text-color);
+  opacity: 0.5;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .nav {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .nav__links {
+    gap: 1rem;
+  }
+  
+  .main {
+    padding: 1rem;
+  }
+  
+  .profile__greeting {
+    font-size: 20px;
+  }
+  
+  .profile__bio {
+    font-size: 16px;
+  }
+  
+  .resume__item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .resume__item-period {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav__links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .social {
+    gap: 1.5rem;
+  }
+}

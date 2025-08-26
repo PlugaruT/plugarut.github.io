@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(bundle update:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

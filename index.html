@@ -1,0 +1,243 @@
+---
+layout: default
+---
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav__links">
+    <a href="#about" class="nav__link" id="about-link">About</a>
+    <a href="#resume" class="nav__link" id="resume-link">Resume</a>
+  </div>
+</nav>
+
+<!-- About View (Default) -->
+<main class="main" id="about-view">
+  <div class="profile">
+    {% if site.author.avatar %}
+    <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile__avatar">
+    {% endif %}
+    
+    <h1 class="profile__greeting">{{ site.author.intro_text }}</h1>
+    
+    <div class="profile__bio">
+      {% capture bio_content %}{% include author-bio.md %}{% endcapture %}
+      {{ bio_content | markdownify }}
+    </div>
+    
+    <!-- Social Links -->
+    <div class="social">
+      {% if site.social.github %}
+      <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="social__link" aria-label="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+        </svg>
+      </a>
+      {% endif %}
+      
+      {% if site.social.linkedin %}
+      <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="social__link" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      {% endif %}
+      
+      {% if site.social.twitter %}
+      <a href="https://twitter.com/{{ site.social.twitter }}" target="_blank" rel="noopener" class="social__link" aria-label="Twitter">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+        </svg>
+      </a>
+      {% endif %}
+      
+      {% if site.social.bluesky %}
+      <a href="https://bsky.app/profile/{{ site.social.bluesky }}" target="_blank" rel="noopener" class="social__link" aria-label="Bluesky">
+        <svg width="20" height="20" viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+        </svg>
+      </a>
+      {% endif %}
+      
+      {% if site.social.website %}
+      <a href="{{ site.social.website }}" target="_blank" rel="noopener" class="social__link" aria-label="Website">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</main>
+
+<!-- Resume View -->
+<main class="main" id="resume-view">
+  <div class="resume">
+    <div class="resume__header">
+      <h1 class="resume__name">{{ site.author.name }}</h1>
+      <p class="resume__location">{{ site.author.location }}</p>
+    </div>
+    
+    <!-- Work Experience -->
+    <section class="resume__section">
+      <h2 class="resume__section-title">Work Experience</h2>
+      {% for job in site.work_experience %}
+      <div class="resume__item">
+        <div class="resume__item-period">{{ job.period }}</div>
+        <div class="resume__item-content">
+          <h3 class="resume__item-title">
+            {{ job.position }}
+            {% if job.company %}
+              at 
+              {% if job.company_url %}
+                <a href="{{ job.company_url }}" target="_blank" rel="noopener" class="resume__item-company">{{ job.company }}</a>
+              {% else %}
+                {{ job.company }}
+              {% endif %}
+            {% endif %}
+          </h3>
+          <p class="resume__item-location">{{ job.location }}</p>
+          
+          {% if job.details_file %}
+          <div class="resume__item-details">
+            {% capture experience_content %}{% include_relative _experiences/{{ job.details_file }} %}{% endcapture %}
+            {{ experience_content | markdownify }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+    
+    <!-- Education -->
+    <section class="resume__section">
+      <h2 class="resume__section-title">Education</h2>
+      {% for edu in site.education %}
+      <div class="resume__item">
+        <div class="resume__item-period">{{ edu.period }}</div>
+        <div class="resume__item-content">
+          <h3 class="resume__item-title">{{ edu.degree }}</h3>
+          <p class="resume__item-location">{{ edu.location }}</p>
+          {% if edu.project %}
+          <p class="resume__item-project">{{ edu.project }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer__credit">Made at 🏠</p>
+</footer>
+
+<script>
+  // Smooth navigation transitions
+  const aboutLink = document.getElementById('about-link');
+  const resumeLink = document.getElementById('resume-link');
+  const aboutView = document.getElementById('about-view');
+  const resumeView = document.getElementById('resume-view');
+  
+  // Add js-loaded class to body to enable CSS transitions
+  document.body.classList.add('js-loaded');
+  
+  function switchToAbout(updateHash = true) {
+    // Animate resume out to the right
+    resumeView.classList.remove('main--hidden');
+    resumeView.classList.add('main--hidden-right');
+    
+    // Animate about in from the left
+    aboutView.classList.remove('main--hidden', 'main--hidden-right');
+    
+    // Update nav states
+    aboutLink.classList.add('nav__link--active');
+    resumeLink.classList.remove('nav__link--active');
+    
+    // Update URL hash
+    if (updateHash) {
+      window.location.hash = 'about';
+    }
+  }
+  
+  function switchToResume(updateHash = true) {
+    // Animate about out to the left
+    aboutView.classList.remove('main--hidden-right');
+    aboutView.classList.add('main--hidden');
+    
+    // Animate resume in from the right
+    resumeView.classList.remove('main--hidden', 'main--hidden-right');
+    
+    // Update nav states
+    resumeLink.classList.add('nav__link--active');
+    aboutLink.classList.remove('nav__link--active');
+    
+    // Update URL hash
+    if (updateHash) {
+      window.location.hash = 'resume';
+    }
+  }
+  
+  // Initialize view based on URL hash
+  function initializeView() {
+    const hash = window.location.hash.slice(1); // Remove the #
+    
+    // Temporarily disable transitions for initial load
+    aboutView.style.transition = 'none';
+    resumeView.style.transition = 'none';
+    
+    if (hash === 'resume') {
+      // Show resume view without animation on initial load
+      resumeView.classList.remove('main--hidden', 'main--hidden-right');
+      aboutView.classList.add('main--hidden');
+      aboutView.classList.remove('main--hidden-right'); // Clean up any right-hidden state
+      resumeLink.classList.add('nav__link--active');
+    } else {
+      // Default to about view
+      aboutView.classList.remove('main--hidden', 'main--hidden-right');
+      resumeView.classList.add('main--hidden-right');
+      aboutLink.classList.add('nav__link--active');
+      // Set default hash if none exists
+      if (!hash) {
+        window.location.hash = 'about';
+      }
+    }
+    
+    // Re-enable transitions after a brief delay
+    setTimeout(() => {
+      aboutView.style.transition = '';
+      resumeView.style.transition = '';
+    }, 50);
+  }
+  
+  // Handle browser back/forward buttons
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash.slice(1);
+    if (hash === 'resume') {
+      switchToResume(false); // false = don't update hash again
+    } else {
+      switchToAbout(false);
+    }
+  });
+  
+  aboutLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (!aboutLink.classList.contains('nav__link--active')) {
+      switchToAbout();
+    }
+  });
+  
+  resumeLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (!resumeLink.classList.contains('nav__link--active')) {
+      switchToResume();
+    }
+  });
+  
+  // Initialize on load
+  initializeView();
+</script>
