@@ -381,6 +381,76 @@ body {
   opacity: 0.7;
 }
 
+/* Additional responsive breakpoints */
+@media (max-width: 320px) {
+  .nav {
+    top: 0.25rem;
+    left: 0.25rem;
+    right: 0.25rem;
+  }
+  
+  .nav__link {
+    font-size: 15px;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .main {
+    padding: 0.5rem;
+    padding-top: 3.5rem;
+  }
+  
+  .profile__avatar {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .profile__greeting {
+    font-size: 18px;
+  }
+  
+  .profile__bio {
+    font-size: 14px;
+  }
+  
+  .social {
+    gap: 1.5rem;
+  }
+  
+  .resume__name {
+    font-size: 18px;
+  }
+  
+  .resume__item-details code {
+    font-size: 9px;
+    padding: 2px 4px;
+  }
+}
+
+/* Touch improvements */
+@media (hover: none) and (pointer: coarse) {
+  .nav__link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .social__link {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .social__link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    opacity: 1;
+  }
+}
+
 /* Footer */
 .footer {
   position: fixed;
@@ -400,31 +470,114 @@ body {
   .nav {
     top: 1rem;
     right: 1rem;
+    left: 1rem;
+    display: flex;
+    justify-content: center;
   }
   
   .nav__links {
-    gap: 1rem;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .nav__link {
+    font-size: 18px;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+  }
+  
+  .nav__link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    opacity: 1;
   }
   
   .main {
     padding: 1rem;
+    padding-top: 5rem;
+  }
+  
+  .profile {
+    max-width: 100%;
   }
   
   .profile__greeting {
-    font-size: 20px;
+    font-size: 22px;
+    margin-bottom: 1.5rem;
   }
   
   .profile__bio {
     font-size: 16px;
+    line-height: 1.8;
+    max-width: 100%;
+  }
+  
+  .profile__bio p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile__bio li {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+  
+  .social {
+    gap: 2rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .social__link svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .resume {
+    max-width: 100%;
   }
   
   .resume__item {
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .resume__item:last-child {
+    border-bottom: none;
   }
   
   .resume__item-period {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .resume__item-details {
+    margin-top: 1.5rem;
+  }
+  
+  .resume__item-details p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+  
+  .resume__item-details li {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+  
+  .resume__item-details code {
+    display: inline-block;
+    margin: 2px;
+    padding: 4px 8px;
+    font-size: 11px;
+    line-height: 1.2;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
   }
   
   .footer {
@@ -434,12 +587,83 @@ body {
 }
 
 @media (max-width: 480px) {
+  .nav {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+  
   .nav__links {
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
+  }
+  
+  .nav__link {
+    font-size: 16px;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .main {
+    padding: 0.75rem;
+    padding-top: 4rem;
+  }
+  
+  .profile__avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile__greeting {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+  
+  .profile__bio {
+    font-size: 15px;
+    line-height: 1.8;
   }
   
   .social {
-    gap: 1.5rem;
+    gap: 1.8rem;
+    margin-top: 2rem;
+  }
+  
+  .social__link svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .resume__name {
+    font-size: 20px;
+  }
+  
+  .resume__section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .resume__section-title {
+    font-size: 17px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .resume__item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .resume__item-title {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .resume__item-details code {
+    font-size: 10px;
+    padding: 3px 6px;
+    margin: 1px;
+  }
+  
+  .footer {
+    bottom: 0.5rem;
+    right: 0.5rem;
   }
 }

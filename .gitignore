@@ -17,3 +17,6 @@ vendor/
 
 # Logs
 *.log
+
+.playwright-mcp/
+.claude/
