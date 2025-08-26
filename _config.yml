@@ -51,7 +51,7 @@ education:
   - period: "2013 — 2017"
     degree: "Bachelor's degree of Systems and Computer Engineering at Technical University of Moldova"
     location: "Republic of Moldova"
-    project: "Final Research Project: 'Key Performance Indicators Management System'"
+    # project: "Final Research Project: 'Key Performance Indicators Management System'"
 
 # Build settings
 markdown: kramdown

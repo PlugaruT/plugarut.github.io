@@ -7,8 +7,8 @@ layout: default
   <div class="nav__links">
     <a href="#about" class="nav__link" id="about-link">About</a>
     <a href="#resume" class="nav__link" id="resume-link">Resume</a>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-      <svg class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <label class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"/>
         <line x1="12" y1="1" x2="12" y2="3"/>
         <line x1="12" y1="21" x2="12" y2="23"/>
@@ -19,10 +19,11 @@ layout: default
         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
       </svg>
-      <svg class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <input type="checkbox" class="theme-toggle__checkbox" id="theme-toggle-checkbox" aria-label="Toggle theme">
+      <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
-    </button>
+    </label>
   </div>
 </nav>
 
@@ -153,6 +154,7 @@ layout: default
 <script>
   // Theme management
   const themeToggle = document.getElementById('theme-toggle');
+  const themeCheckbox = document.getElementById('theme-toggle-checkbox');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   
   // Get saved theme or default to system preference
@@ -169,8 +171,9 @@ layout: default
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
-    // Update button aria-label
+    // Update checkbox state and aria-label
     const isDark = theme === 'dark';
+    themeCheckbox.checked = isDark;
     themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
   }
   
@@ -192,7 +195,7 @@ layout: default
   });
   
   // Theme toggle event listener
-  themeToggle.addEventListener('click', toggleTheme);
+  themeCheckbox.addEventListener('change', toggleTheme);
 
   // Smooth navigation transitions
   const aboutLink = document.getElementById('about-link');
