@@ -2,7 +2,7 @@
 
 I do **software engineering** for a living.
 
-Currently, I'm part of platform streaming team at [Gorgias](https://gorgias.com/) where I'm building real-time features using Python, Apache Flink and Apache Kafka.
+Currently, I'm part of the platform streaming team at [Gorgias](https://gorgias.com/) where I'm building real-time features using Python, Apache Flink and Apache Kafka.
 
 When I'm not coding, you might find me:
 - Contributing to open source projects
