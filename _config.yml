@@ -14,12 +14,6 @@ author:
   avatar: "/assets/images/profile.jpeg"
   intro_text: "Hi, I'm Tudor."
   
-# Theme Configuration (custom variables, not a gem theme)
-theme_colors:
-  background_color: "#fffcf0"
-  text_color: "#100f0f"
-  secondary_text_color: "#6f6e69"
-  font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
 
 # Social Media Links
 social:

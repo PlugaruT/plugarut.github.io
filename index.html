@@ -7,6 +7,19 @@ layout: default
   <div class="nav__links">
     <a href="#about" class="nav__link" id="about-link">About</a>
     <a href="#resume" class="nav__link" id="resume-link">Resume</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg class="theme-toggle__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -133,10 +146,53 @@ layout: default
 
 <!-- Footer -->
 <footer class="footer">
-  <p class="footer__credit">Made at 🏠</p>
+  <p class="footer__credit">Made with <span class="claude-logo">Claude</span></p>
 </footer>
 
 <script>
+  // Theme management
+  const themeToggle = document.getElementById('theme-toggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  // Get saved theme or default to system preference
+  function getSavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+    return prefersDark.matches ? 'dark' : 'light';
+  }
+  
+  // Apply theme
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update button aria-label
+    const isDark = theme === 'dark';
+    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  
+  // Toggle theme
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+  }
+  
+  // Initialize theme
+  applyTheme(getSavedTheme());
+  
+  // Listen for system theme changes
+  prefersDark.addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+  
+  // Theme toggle event listener
+  themeToggle.addEventListener('click', toggleTheme);
+
   // Smooth navigation transitions
   const aboutLink = document.getElementById('about-link');
   const resumeLink = document.getElementById('resume-link');
