@@ -90,3 +90,4 @@ exclude:
   - Gemfile.lock
   - README.md
   - .gitignore
+  - vendor/
