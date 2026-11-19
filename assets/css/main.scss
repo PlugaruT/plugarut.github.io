@@ -99,59 +99,51 @@ body {
   to { transform: scaleX(1); }
 }
 
-/* Theme toggle switch */
-.theme-toggle {
+/* Theme switch: light / system / dark */
+.theme-switch {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  cursor: pointer;
-  padding: 3px 5px;
-  background-color: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  transition: all 0.2s ease;
+  gap: 2px;
+  padding: 2px;
   margin-left: 1rem;
-  position: relative;
-  height: 22px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
   align-self: center;
+}
+
+.theme-switch__option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 
   &:hover {
+    color: var(--text-color);
     background-color: var(--hover-bg);
-    border-color: var(--accent-color);
   }
-}
 
-.theme-toggle__checkbox {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
+  &[aria-pressed="true"] {
+    color: var(--accent-color);
+    background-color: var(--hover-bg);
+  }
 
-.theme-toggle__sun,
-.theme-toggle__moon {
-  width: 12px;
-  height: 12px;
-  color: var(--text-color);
-  transition: opacity 0.3s ease, color 0.3s ease;
-  flex-shrink: 0;
-}
-
-/* The active theme's icon is highlighted */
-.theme-toggle__sun,
-[data-theme="dark"] .theme-toggle__moon {
-  opacity: 1;
-  color: var(--accent-color);
-}
-
-.theme-toggle__moon,
-[data-theme="dark"] .theme-toggle__sun {
-  opacity: 0.4;
-  color: var(--text-color);
-}
-
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
+  &:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -245,7 +237,7 @@ body {
    About view
    --------------------------------------------------------------------------- */
 .profile {
-  text-align: center;
+  text-align: left;
   max-width: 600px;
   margin: 0 auto;
   width: 100%;
@@ -266,8 +258,6 @@ body {
   line-height: 1.7;
   text-align: left;
   max-width: 550px;
-  margin-left: auto;
-  margin-right: auto;
 
   p {
     margin-bottom: 1rem;
@@ -284,7 +274,7 @@ body {
 
 .social {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
   margin-top: 2rem;
 }
@@ -315,7 +305,7 @@ body {
 }
 
 .resume__header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 3rem;
 }
 
@@ -324,6 +314,12 @@ body {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--text-color);
+}
+
+.resume__contact {
+  display: none;
+  font-size: 14px;
+  color: var(--text-2);
 }
 
 .resume__location {
@@ -362,6 +358,7 @@ body {
   font-size: 14px;
   color: var(--text-2);
   font-weight: 400;
+  font-variant-numeric: tabular-nums;
 }
 
 .resume__item-content {
@@ -443,23 +440,19 @@ body {
 }
 
 .footer__credit {
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background-color: var(--bg-color);
   font-size: 12px;
   color: var(--text-2);
-  opacity: 0.5;
   display: flex;
   align-items: center;
   gap: 0.25rem;
-
-  &:hover .claude-logo {
-    opacity: 1;
-  }
 }
 
 .claude-logo {
   color: var(--accent-color);
   font-weight: 500;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
 }
 
 /* ---------------------------------------------------------------------------
@@ -479,6 +472,11 @@ body {
       background-color: var(--hover-bg);
       opacity: 1;
     }
+  }
+
+  .theme-switch__option {
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -522,7 +520,7 @@ body {
     padding: 0.75rem 1.5rem;
   }
 
-  .theme-toggle { margin-left: 1.5rem; }
+  .theme-switch { margin-left: 1.5rem; }
   .profile { max-width: 800px; }
 
   .profile__avatar {
@@ -575,7 +573,7 @@ body {
 /* ---------------------------------------------------------------------------
    Small screens (480px builds on 768px)
    --------------------------------------------------------------------------- */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .nav {
     top: 1rem;
     right: 1rem;
@@ -602,11 +600,12 @@ body {
     }
   }
 
-  .theme-toggle { margin-left: 1.5rem; }
+  .theme-switch { margin-left: 0.5rem; }
 
   .main {
     padding: 1rem;
     padding-top: 5rem;
+    padding-bottom: 3.5rem; /* room for the fixed footer */
   }
 
   .profile,
@@ -637,21 +636,48 @@ body {
     height: 24px;
   }
 
+  /* Role first, then "period · location" on one muted line */
   .resume__item {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.125rem 0.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--border-color);
 
     &:last-child { border-bottom: none; }
   }
 
-  .resume__item-period {
-    margin-bottom: 1rem;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-color);
+  .resume__item-content { display: contents; }
+
+  .resume__item-title {
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .resume__item-period { order: 2; }
+
+  .resume__item-location {
+    order: 3;
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+
+    &::before {
+      content: "·";
+      margin-right: 0.5rem;
+    }
+  }
+
+  .resume__item-period:empty + .resume__item-content .resume__item-location::before {
+    content: none;
+  }
+
+  .resume__item-details,
+  .resume__item-project {
+    order: 4;
+    flex-basis: 100%;
   }
 
   .resume__item-details {
@@ -684,7 +710,7 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .nav {
     top: 0.5rem;
     left: 0.5rem;
@@ -698,11 +724,12 @@ body {
     padding: 0.5rem 0.75rem;
   }
 
-  .theme-toggle { margin-left: 1rem; }
+  .theme-switch { margin-left: 0; }
 
   .main {
     padding: 0.75rem;
     padding-top: 4rem;
+    padding-bottom: 3rem; /* room for the fixed footer */
   }
 
   .profile__avatar {
@@ -732,11 +759,6 @@ body {
     margin-bottom: 1.5rem;
   }
 
-  .resume__item {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-
   .resume__item-title {
     font-size: 15px;
     line-height: 1.5;
@@ -752,6 +774,59 @@ body {
     bottom: 0.5rem;
     right: 0.5rem;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Print: always prints the resume as a clean, light document
+   --------------------------------------------------------------------------- */
+@media print {
+  :root,
+  [data-theme="dark"] {
+    --bg-color: #FFFFFF;
+    --text-color: #100F0F;
+    --text-2: #4A4945;
+    --accent-color: #100F0F;
+    --border-color: #E6E4D9;
+  }
+
+  @page { margin: 16mm 18mm; }
+
+  body {
+    display: block;
+    min-height: 0;
+    font-size: 11pt;
+  }
+
+  .nav,
+  .footer,
+  #about-view {
+    display: none !important;
+  }
+
+  #resume-view {
+    display: block !important;
+    position: static;
+    min-height: 0;
+    padding: 0;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .resume { max-width: none; }
+  .resume__header { margin-bottom: 1.5rem; }
+  .resume__contact { display: block; }
+  .resume__section { margin-bottom: 1.5rem; }
+  .resume__section-title { margin-bottom: 0.75rem; }
+
+  .resume__item {
+    grid-template-columns: 170px 1fr;
+    break-inside: avoid;
+    margin-bottom: 0.75rem;
+  }
+
+  .resume__item-period { white-space: nowrap; }
+
+  .resume__item-company { text-decoration: none; }
 }
 
 /* Respect the OS "reduce motion" setting */

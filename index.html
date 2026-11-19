@@ -7,23 +7,25 @@ layout: default
   <div class="nav__links">
     <a href="#about" class="nav__link" id="about-link">About</a>
     <a href="#resume" class="nav__link" id="resume-link">Resume</a>
-    <label class="theme-toggle" id="theme-toggle">
-      <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <input type="checkbox" class="theme-toggle__checkbox" id="theme-toggle-checkbox" aria-label="Toggle theme">
-      <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </label>
+    <div class="theme-switch" role="group" aria-label="Color theme">
+      <button type="button" class="theme-switch__option" data-theme-option="light" aria-pressed="false" aria-label="Light theme" title="Light">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+      <button type="button" class="theme-switch__option" data-theme-option="system" aria-pressed="false" aria-label="System theme" title="System">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="13" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+      </button>
+      <button type="button" class="theme-switch__option" data-theme-option="dark" aria-pressed="false" aria-label="Dark theme" title="Dark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -42,8 +44,17 @@ layout: default
     
     <!-- Social Links -->
     <div class="social">
+      {% if site.email %}
+      <a href="mailto:{{ site.email }}" class="social__link" aria-label="Email" title="Email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-10 6L2 7"/>
+        </svg>
+      </a>
+      {% endif %}
+
       {% if site.social.github %}
-      <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="social__link" aria-label="GitHub">
+      <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="social__link" aria-label="GitHub" title="GitHub">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
         </svg>
@@ -51,7 +62,7 @@ layout: default
       {% endif %}
       
       {% if site.social.linkedin %}
-      <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="social__link" aria-label="LinkedIn">
+      <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="social__link" aria-label="LinkedIn" title="LinkedIn">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
           <rect x="2" y="9" width="4" height="12"/>
@@ -61,7 +72,7 @@ layout: default
       {% endif %}
       
       {% if site.social.twitter %}
-      <a href="https://x.com/{{ site.social.twitter }}" target="_blank" rel="noopener" class="social__link" aria-label="X">
+      <a href="https://x.com/{{ site.social.twitter }}" target="_blank" rel="noopener" class="social__link" aria-label="X" title="X">
         <svg width="20" height="20" viewBox="-3 -3 30 30" fill="currentColor" stroke="none">
           <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
         </svg>
@@ -69,7 +80,7 @@ layout: default
       {% endif %}
       
       {% if site.social.bluesky %}
-      <a href="https://bsky.app/profile/{{ site.social.bluesky }}" target="_blank" rel="noopener" class="social__link" aria-label="Bluesky">
+      <a href="https://bsky.app/profile/{{ site.social.bluesky }}" target="_blank" rel="noopener" class="social__link" aria-label="Bluesky" title="Bluesky">
         <svg width="20" height="20" viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
         </svg>
@@ -77,7 +88,7 @@ layout: default
       {% endif %}
       
       {% if site.social.website %}
-      <a href="{{ site.social.website }}" target="_blank" rel="noopener" class="social__link" aria-label="Website">
+      <a href="{{ site.social.website }}" target="_blank" rel="noopener" class="social__link" aria-label="Website" title="Website">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/>
           <line x1="2" y1="12" x2="22" y2="12"/>
@@ -95,6 +106,7 @@ layout: default
     <div class="resume__header">
       <h1 class="resume__name">{{ site.author.name }}</h1>
       <!-- <p class="resume__location">{{ site.author.location }}</p> -->
+      <p class="resume__contact">{{ site.url | remove: "https://" }} · {{ site.email }}{% if site.social.github %} · github.com/{{ site.social.github }}{% endif %}</p>
     </div>
     
     <!-- Work Experience -->
@@ -154,52 +166,50 @@ layout: default
 </footer>
 
 <script>
-  // Theme management
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeCheckbox = document.getElementById('theme-toggle-checkbox');
+  // Theme management: "light", "dark", or "system" (follow the OS setting)
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  // Explicit choice saved by the toggle, or null to follow the system
-  function getSavedTheme() {
+  const themeOptions = document.querySelectorAll('[data-theme-option]');
+
+  function getThemeMode() {
     try {
       const saved = localStorage.getItem('theme');
-      return saved === 'light' || saved === 'dark' ? saved : null;
+      return saved === 'light' || saved === 'dark' ? saved : 'system';
     } catch (e) {
-      return null;
+      return 'system';
     }
   }
 
-  // Apply theme (persist only when the user picked it)
-  function applyTheme(theme, persist) {
+  function renderTheme(mode) {
+    const theme = mode === 'system' ? (prefersDark.matches ? 'dark' : 'light') : mode;
     document.documentElement.setAttribute('data-theme', theme);
-    if (persist) {
-      try { localStorage.setItem('theme', theme); } catch (e) {}
-    }
-
-    // Update checkbox state and aria-label
-    const isDark = theme === 'dark';
-    themeCheckbox.checked = isDark;
-    themeCheckbox.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    themeOptions.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.themeOption === mode));
+    });
   }
 
-  // Toggle theme
-  function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    applyTheme(currentTheme === 'light' ? 'dark' : 'light', true);
+  function setThemeMode(mode) {
+    try {
+      if (mode === 'system') {
+        localStorage.removeItem('theme');
+      } else {
+        localStorage.setItem('theme', mode);
+      }
+    } catch (e) {}
+    renderTheme(mode);
   }
 
-  // Initialize theme
-  applyTheme(getSavedTheme() || (prefersDark.matches ? 'dark' : 'light'), false);
+  themeOptions.forEach((button) => {
+    button.addEventListener('click', () => setThemeMode(button.dataset.themeOption));
+  });
 
-  // Follow system theme changes unless the user picked one
-  prefersDark.addEventListener('change', (e) => {
-    if (!getSavedTheme()) {
-      applyTheme(e.matches ? 'dark' : 'light', false);
+  // Follow OS theme changes while in "system" mode
+  prefersDark.addEventListener('change', () => {
+    if (getThemeMode() === 'system') {
+      renderTheme('system');
     }
   });
 
-  // Theme toggle event listener
-  themeCheckbox.addEventListener('change', toggleTheme);
+  renderTheme(getThemeMode());
 
   // Smooth navigation transitions
   const aboutLink = document.getElementById('about-link');
