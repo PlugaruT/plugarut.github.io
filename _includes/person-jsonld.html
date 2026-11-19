@@ -1,0 +1,50 @@
+{%- comment -%}
+  ProfilePage + Person structured data for the homepage, built from _config.yml
+  so the social links and current job stay in one place.
+{%- endcomment -%}
+{%- assign job = site.work_experience | first -%}
+{%- capture same_as -%}
+  {%- if site.social.github -%}"https://github.com/{{ site.social.github }}",{%- endif -%}
+  {%- if site.social.linkedin -%}"https://www.linkedin.com/in/{{ site.social.linkedin }}",{%- endif -%}
+  {%- if site.social.twitter -%}"https://x.com/{{ site.social.twitter }}",{%- endif -%}
+  {%- if site.social.bluesky -%}"https://bsky.app/profile/{{ site.social.bluesky }}",{%- endif -%}
+  {%- if site.social.website -%}{{ site.social.website | jsonify }},{%- endif -%}
+{%- endcapture -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": {{ "/" | absolute_url | jsonify }},
+  "mainEntity": {
+    "@type": "Person",
+    "@id": {{ "/#person" | absolute_url | jsonify }},
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ "/" | absolute_url | jsonify }},
+    "image": {{ site.author.avatar | absolute_url | jsonify }},
+    "description": {{ site.description | strip | jsonify }}
+    {%- if job %},
+    "jobTitle": {{ job.position | jsonify }},
+    "worksFor": {
+      "@type": "Organization",
+      "name": {{ job.company | jsonify }}
+      {%- if job.company_url %},
+      "url": {{ job.company_url | jsonify }}
+      {%- endif %}
+    }
+    {%- endif %}
+    {%- if site.author.knows_about %},
+    "knowsAbout": {{ site.author.knows_about | jsonify }}
+    {%- endif %}
+    {%- if site.author.location %},
+    "homeLocation": {
+      "@type": "Place",
+      "name": {{ site.author.location | jsonify }}
+    }
+    {%- endif %}
+    {%- assign same_as = same_as | strip | split: "," | join: ", " -%}
+    {%- if same_as != "" %},
+    "sameAs": [{{ same_as }}]
+    {%- endif %}
+  }
+}
+</script>

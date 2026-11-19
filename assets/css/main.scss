@@ -1,67 +1,44 @@
 ---
 ---
 
-/* The Gist Of - Minimalistic Design */
+/* Minimal profile site - Flexoki color theme */
 
-/* CSS Variables - Official Flexoki Theme */
+/* ---------------------------------------------------------------------------
+   Theme tokens
+   --------------------------------------------------------------------------- */
 :root {
-  /* Light theme (default) - Flexoki Light */
-  --bg-color: #FFFCF0;          /* bg */
-  --bg-2: #F2F0E5;              /* bg-2 */
-  --text-color: #100F0F;        /* tx */
-  --text-2: #6F6E69;            /* tx-2 (muted) */
-  --text-3: #B7B5AC;            /* tx-3 (faint) */
-  --accent-color: #205EA6;      /* blue-600 */
+  /* Flexoki Light */
+  --bg-color: #FFFCF0;
+  --text-color: #100F0F;
+  --text-2: #6F6E69;                /* muted */
+  --accent-color: #205EA6;          /* blue-600 */
   --hover-bg: rgba(32, 94, 166, 0.08);
   --border-color: #E6E4D9;
   --code-bg: rgba(32, 94, 166, 0.05);
-  --nav-bg: rgba(255, 252, 240, 0.95);
   --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
-  
-  /* Accent colors - Light theme (600 series) */
-  --red: #AF3029;
-  --orange: #BC5215;
-  --yellow: #AD8301;
-  --green: #66800B;
-  --cyan: #24837B;
-  --blue: #205EA6;
-  --purple: #5E409D;
-  --magenta: #A02F6F;
 }
 
-/* Dark theme - Flexoki Dark */
 [data-theme="dark"] {
-  --bg-color: #1C1B1A;          /* bg */
-  --bg-2: #282726;              /* bg-2 */
-  --text-color: #CECDC3;        /* tx */
-  --text-2: #878580;            /* tx-2 (muted) */
-  --text-3: #6F6E69;            /* tx-3 (faint) */
-  --accent-color: #4385BE;      /* blue-400 */
+  /* Flexoki Dark */
+  --bg-color: #1C1B1A;
+  --text-color: #CECDC3;
+  --text-2: #878580;
+  --accent-color: #4385BE;          /* blue-400 */
   --hover-bg: rgba(67, 133, 190, 0.12);
   --border-color: #343331;
   --code-bg: rgba(67, 133, 190, 0.08);
-  --nav-bg: rgba(28, 27, 26, 0.95);
-  
-  /* Accent colors - Dark theme (400 series) */
-  --red: #D14D41;
-  --orange: #DA702C;
-  --yellow: #D0A215;
-  --green: #879A39;
-  --cyan: #3AA99F;
-  --blue: #4385BE;
-  --purple: #8B7EC8;
-  --magenta: #CE5D97;
 }
 
-/* Reset */
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Base styles */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -75,7 +52,9 @@ body {
   position: relative;
 }
 
-/* Navigation */
+/* ---------------------------------------------------------------------------
+   Navigation
+   --------------------------------------------------------------------------- */
 .nav {
   position: absolute;
   top: 2rem;
@@ -94,25 +73,30 @@ body {
   font-size: 16px;
   transition: opacity 0.2s ease;
   position: relative;
-}
 
-.nav__link:hover {
-  opacity: 0.7;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .nav__link--active {
   opacity: 1;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    animation: slideIn 0.3s ease;
+  }
 }
 
-.nav__link--active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--accent-color);
-  animation: slideIn 0.3s ease;
+@keyframes slideIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 /* Theme toggle switch */
@@ -130,11 +114,11 @@ body {
   position: relative;
   height: 22px;
   align-self: center;
-}
 
-.theme-toggle:hover {
-  background-color: var(--hover-bg);
-  border-color: var(--accent-color);
+  &:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--accent-color);
+  }
 }
 
 .theme-toggle__checkbox {
@@ -152,24 +136,17 @@ body {
   flex-shrink: 0;
 }
 
-.theme-toggle__sun {
-  opacity: 1;
-  color: var(--accent-color);
-}
-
-.theme-toggle__moon {
-  opacity: 0.4;
-}
-
-/* Dark theme styles */
-[data-theme="dark"] .theme-toggle__sun {
-  opacity: 0.4;
-  color: var(--text-color);
-}
-
+/* The active theme's icon is highlighted */
+.theme-toggle__sun,
 [data-theme="dark"] .theme-toggle__moon {
   opacity: 1;
   color: var(--accent-color);
+}
+
+.theme-toggle__moon,
+[data-theme="dark"] .theme-toggle__sun {
+  opacity: 0.4;
+  color: var(--text-color);
 }
 
 .theme-toggle:focus-visible {
@@ -177,26 +154,19 @@ body {
   outline-offset: 2px;
 }
 
-@keyframes slideIn {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
+/* ---------------------------------------------------------------------------
+   Views (About / Resume)
+   --------------------------------------------------------------------------- */
 
-/* Initially hide resume view to prevent flash on page load */
+/* Hide the resume view until JavaScript has loaded, to prevent a flash */
 #resume-view {
   display: none;
 }
 
-/* Show resume view when JavaScript has loaded */
 .js-loaded #resume-view {
   display: flex;
 }
 
-/* Main content */
 .main {
   flex: 1;
   display: flex;
@@ -213,19 +183,67 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.main--hidden {
+.main--hidden,
+.main--hidden-right {
   opacity: 0;
-  transform: translateX(-20px);
   pointer-events: none;
+}
+
+.main--hidden {
+  transform: translateX(-20px);
 }
 
 .main--hidden-right {
-  opacity: 0;
   transform: translateX(20px);
-  pointer-events: none;
 }
 
-/* Profile (About view) */
+/* ---------------------------------------------------------------------------
+   Shared content styles (bio text and resume details)
+   --------------------------------------------------------------------------- */
+.profile__bio a,
+.resume__item-company,
+.resume__item-details a {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.resume__item-company {
+  text-decoration-thickness: 1px;
+}
+
+.profile__bio ul,
+.resume__item-details ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.profile__bio li,
+.resume__item-details li {
+  margin-bottom: 0.5rem;
+  position: relative;
+
+  &::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+  }
+}
+
+.profile__bio strong,
+.resume__item-details strong {
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+   About view
+   --------------------------------------------------------------------------- */
 .profile {
   text-align: center;
   max-width: 600px;
@@ -241,13 +259,6 @@ body {
   margin-bottom: 2rem;
 }
 
-.profile__greeting {
-  font-size: 24px;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  color: var(--text-color);
-}
-
 .profile__bio {
   font-size: 16px;
   color: var(--text-color);
@@ -257,54 +268,20 @@ body {
   max-width: 550px;
   margin-left: auto;
   margin-right: auto;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  li {
+    padding-left: 1.5rem;
+  }
 }
 
-.profile__bio p {
-  margin-bottom: 1rem;
-}
-
-.profile__bio p:last-child {
-  margin-bottom: 0;
-}
-
-.profile__bio ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 1rem;
-}
-
-.profile__bio li {
-  margin-bottom: 0.5rem;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.profile__bio li:before {
-  content: "•";
-  position: absolute;
-  left: 0;
-}
-
-.profile__bio a {
-  color: var(--accent-color);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: opacity 0.2s ease;
-}
-
-.profile__bio a:hover {
-  opacity: 0.7;
-}
-
-.profile__bio strong {
-  font-weight: 600;
-}
-
-.profile__bio em {
-  font-style: italic;
-}
-
-/* Social links */
 .social {
   display: flex;
   justify-content: center;
@@ -316,18 +293,20 @@ body {
   color: var(--text-color);
   opacity: 0.7;
   transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
-.social__link:hover {
-  opacity: 1;
-}
-
-.social__link svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Resume view */
+/* ---------------------------------------------------------------------------
+   Resume view
+   --------------------------------------------------------------------------- */
 .resume {
   max-width: 600px;
   margin: 0 auto;
@@ -354,10 +333,10 @@ body {
 
 .resume__section {
   margin-bottom: 3rem;
-}
 
-.resume__section:last-child {
-  margin-bottom: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .resume__section-title {
@@ -373,10 +352,10 @@ body {
   gap: 2rem;
   margin-bottom: 2rem;
   align-items: start;
-}
 
-.resume__item:last-child {
-  margin-bottom: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .resume__item-period {
@@ -397,19 +376,6 @@ body {
   line-height: 1.4;
 }
 
-.resume__item-company {
-  color: var(--accent-color);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-thickness: 1px;
-  transition: opacity 0.2s ease;
-}
-
-.resume__item-company:hover {
-  opacity: 0.7;
-  text-decoration: underline;
-}
-
 .resume__item-location {
   font-size: 14px;
   color: var(--text-2);
@@ -423,277 +389,52 @@ body {
   line-height: 1.4;
 }
 
-/* Enhanced work experience details */
+/* Optional per-job details (_experiences/*.md) */
 .resume__item-details {
   margin-top: 1rem;
   font-size: 14px;
   line-height: 1.6;
-}
 
-.resume__item-details h3 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-}
-
-.resume__item-details ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 1rem;
-}
-
-.resume__item-details li {
-  margin-bottom: 0.5rem;
-  padding-left: 1.25rem;
-  position: relative;
-  color: var(--text-2);
-}
-
-.resume__item-details li:before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--text-2);
-}
-
-.resume__item-details p {
-  margin-bottom: 0.75rem;
-  color: var(--text-2);
-}
-
-.resume__item-details code {
-  background-color: var(--code-bg);
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 12px;
-  font-family: var(--font-family-mono);
-  color: var(--accent-color);
-  font-weight: 500;
-}
-
-.resume__item-details strong {
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-.resume__item-details a {
-  color: var(--accent-color);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: opacity 0.2s ease;
-}
-
-.resume__item-details a:hover {
-  opacity: 0.7;
-}
-
-/* Additional responsive breakpoints */
-@media (max-width: 320px) {
-  .nav {
-    top: 0.25rem;
-    left: 0.25rem;
-    right: 0.25rem;
-  }
-  
-  .nav__link {
-    font-size: 15px;
-    padding: 0.4rem 0.6rem;
-  }
-  
-  .main {
-    padding: 0.5rem;
-    padding-top: 3.5rem;
-  }
-  
-  .profile__avatar {
-    width: 98px;
-    height: 98px;
-  }
-  
-  .profile__greeting {
-    font-size: 18px;
-  }
-  
-  .profile__bio {
+  h3 {
     font-size: 14px;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
   }
-  
-  .social {
-    gap: 1.5rem;
+
+  li {
+    padding-left: 1.25rem;
+    color: var(--text-2);
   }
-  
-  .resume__name {
-    font-size: 18px;
+
+  li::before {
+    color: var(--text-2);
   }
-  
-  .resume__item-details code {
-    font-size: 9px;
-    padding: 2px 4px;
+
+  p {
+    margin-bottom: 0.75rem;
+    color: var(--text-2);
+  }
+
+  code {
+    background-color: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: var(--font-family-mono);
+    color: var(--accent-color);
+    font-weight: 500;
+  }
+
+  strong {
+    color: var(--text-color);
   }
 }
 
-/* Touch improvements */
-@media (hover: none) and (pointer: coarse) {
-  .social__link {
-    min-height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background-color 0.2s ease;
-  }
-  
-  .social__link:hover {
-    background-color: var(--hover-bg);
-    opacity: 1;
-  }
-}
-
-/* Large screen optimizations */
-@media (min-width: 1440px) {
-  .main {
-    padding: 3rem;
-  }
-  
-  .profile {
-    max-width: 700px;
-  }
-  
-  .profile__greeting {
-    font-size: 28px;
-  }
-  
-  .profile__bio {
-    font-size: 18px;
-    line-height: 1.8;
-    max-width: 650px;
-  }
-  
-  .resume {
-    max-width: 700px;
-  }
-  
-  .resume__name {
-    font-size: 28px;
-  }
-  
-  .resume__section-title {
-    font-size: 20px;
-  }
-  
-  .resume__item {
-    grid-template-columns: 180px 1fr;
-    gap: 2.5rem;
-  }
-}
-
-/* Very large screens (4K+) */
-@media (min-width: 2560px) {
-  .main {
-    padding: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .profile {
-    max-width: 800px;
-  }
-  
-  .profile__greeting {
-    font-size: 32px;
-  }
-  
-  .profile__bio {
-    font-size: 20px;
-    line-height: 1.9;
-    max-width: 750px;
-  }
-  
-  .profile__avatar {
-    width: 168px;
-    height: 168px;
-  }
-  
-  .social {
-    gap: 2.5rem;
-    margin-top: 3rem;
-  }
-  
-  .social__link svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .resume {
-    max-width: 800px;
-  }
-  
-  .resume__name {
-    font-size: 32px;
-  }
-  
-  .resume__section-title {
-    font-size: 22px;
-  }
-  
-  .resume__item {
-    grid-template-columns: 200px 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-  }
-  
-  .resume__item-title {
-    font-size: 18px;
-  }
-  
-  .resume__item-details {
-    font-size: 16px;
-  }
-  
-  .nav {
-    top: 3rem;
-    right: 3rem;
-  }
-  
-  .nav__link {
-    font-size: 18px;
-    padding: 0.75rem 1.5rem;
-  }
-  
-  .theme-toggle {
-    margin-left: 1.5rem;
-  }
-  
-  .footer {
-    bottom: 3rem;
-    right: 3rem;
-  }
-  
-  .footer__credit {
-    font-size: 14px;
-  }
-}
-
-/* Ultra-wide screens */
-@media (min-width: 3840px) {
-  .main {
-    max-width: 1400px;
-    padding: 5rem;
-  }
-  
-  .profile {
-    max-width: 900px;
-  }
-  
-  .resume {
-    max-width: 900px;
-  }
-}
-
-/* Footer */
+/* ---------------------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------------------- */
 .footer {
   position: fixed;
   bottom: 2rem;
@@ -708,6 +449,10 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+
+  &:hover .claude-logo {
+    opacity: 1;
+  }
 }
 
 .claude-logo {
@@ -717,11 +462,119 @@ body {
   transition: opacity 0.2s ease;
 }
 
-.footer__credit:hover .claude-logo {
-  opacity: 1;
+/* ---------------------------------------------------------------------------
+   Touch devices: larger tap targets for social links
+   --------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+  .social__link {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--hover-bg);
+      opacity: 1;
+    }
+  }
 }
 
-/* Responsive design */
+/* ---------------------------------------------------------------------------
+   Large screens (each step builds on the previous one)
+   --------------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  .main { padding: 3rem; }
+  .profile { max-width: 700px; }
+
+  .profile__bio {
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 650px;
+  }
+
+  .resume { max-width: 700px; }
+  .resume__name { font-size: 28px; }
+  .resume__section-title { font-size: 20px; }
+
+  .resume__item {
+    grid-template-columns: 180px 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .main {
+    padding: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .nav {
+    top: 3rem;
+    right: 3rem;
+  }
+
+  .nav__link {
+    font-size: 18px;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .theme-toggle { margin-left: 1.5rem; }
+  .profile { max-width: 800px; }
+
+  .profile__avatar {
+    width: 168px;
+    height: 168px;
+  }
+
+  .profile__bio {
+    font-size: 20px;
+    line-height: 1.9;
+    max-width: 750px;
+  }
+
+  .social {
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .social__link svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .resume { max-width: 800px; }
+  .resume__name { font-size: 32px; }
+  .resume__section-title { font-size: 22px; }
+
+  .resume__item {
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .resume__item-title { font-size: 18px; }
+  .resume__item-details { font-size: 16px; }
+}
+
+@media (min-width: 3840px) {
+  .main {
+    max-width: 1400px;
+    padding: 5rem;
+  }
+
+  .profile,
+  .resume {
+    max-width: 900px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Small screens (480px builds on 768px)
+   --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .nav {
     top: 1rem;
@@ -730,116 +583,101 @@ body {
     display: flex;
     justify-content: center;
   }
-  
+
   .nav__links {
     gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
   }
-  
+
   .nav__link {
     font-size: 18px;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: background-color 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      background-color: var(--hover-bg);
+      opacity: 1;
+    }
   }
-  
-  .nav__link:hover {
-    background-color: var(--hover-bg);
-    opacity: 1;
-  }
-  
-  .theme-toggle {
-    margin-left: 1.5rem;
-  }
-  
+
+  .theme-toggle { margin-left: 1.5rem; }
+
   .main {
     padding: 1rem;
     padding-top: 5rem;
   }
-  
-  .profile {
+
+  .profile,
+  .resume {
     max-width: 100%;
   }
-  
-  .profile__greeting {
-    font-size: 22px;
-    margin-bottom: 1.5rem;
-  }
-  
+
   .profile__bio {
-    font-size: 16px;
     line-height: 1.8;
     max-width: 100%;
+
+    p { margin-bottom: 1.5rem; }
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.7;
+    }
   }
-  
-  .profile__bio p {
-    margin-bottom: 1.5rem;
-  }
-  
-  .profile__bio li {
-    margin-bottom: 0.75rem;
-    line-height: 1.7;
-  }
-  
+
   .social {
     gap: 2rem;
     margin-top: 2.5rem;
     flex-wrap: wrap;
   }
-  
+
   .social__link svg {
     width: 24px;
     height: 24px;
   }
-  
-  .resume {
-    max-width: 100%;
-  }
-  
+
   .resume__item {
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    &:last-child { border-bottom: none; }
   }
-  
-  .resume__item:last-child {
-    border-bottom: none;
-  }
-  
+
   .resume__item-period {
     margin-bottom: 1rem;
     font-size: 16px;
     font-weight: 500;
     color: var(--text-color);
   }
-  
+
   .resume__item-details {
     margin-top: 1.5rem;
+
+    p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.7;
+    }
+
+    code {
+      display: inline-block;
+      margin: 2px;
+      padding: 4px 8px;
+      font-size: 11px;
+      line-height: 1.2;
+      background-color: rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+    }
   }
-  
-  .resume__item-details p {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-  
-  .resume__item-details li {
-    margin-bottom: 0.75rem;
-    line-height: 1.7;
-  }
-  
-  .resume__item-details code {
-    display: inline-block;
-    margin: 2px;
-    padding: 4px 8px;
-    font-size: 11px;
-    line-height: 1.2;
-    background-color: rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-  }
-  
+
   .footer {
     bottom: 1rem;
     right: 1rem;
@@ -852,80 +690,64 @@ body {
     left: 0.5rem;
     right: 0.5rem;
   }
-  
-  .nav__links {
-    gap: 1rem;
-  }
-  
+
+  .nav__links { gap: 1rem; }
+
   .nav__link {
     font-size: 16px;
     padding: 0.5rem 0.75rem;
   }
-  
-  .theme-toggle {
-    margin-left: 1rem;
-  }
-  
+
+  .theme-toggle { margin-left: 1rem; }
+
   .main {
     padding: 0.75rem;
     padding-top: 4rem;
   }
-  
+
   .profile__avatar {
     width: 112px;
     height: 112px;
     margin-bottom: 1.5rem;
   }
-  
-  .profile__greeting {
-    font-size: 20px;
-    margin-bottom: 1rem;
-  }
-  
-  .profile__bio {
-    font-size: 15px;
-    line-height: 1.8;
-  }
-  
+
+  .profile__bio { font-size: 15px; }
+
   .social {
     gap: 1.8rem;
     margin-top: 2rem;
   }
-  
+
   .social__link svg {
     width: 22px;
     height: 22px;
   }
-  
-  .resume__name {
-    font-size: 20px;
-  }
-  
-  .resume__section {
-    margin-bottom: 2.5rem;
-  }
-  
+
+  .resume__name { font-size: 20px; }
+
+  .resume__section { margin-bottom: 2.5rem; }
+
   .resume__section-title {
     font-size: 17px;
     margin-bottom: 1.5rem;
   }
-  
+
   .resume__item {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
   }
-  
+
   .resume__item-title {
     font-size: 15px;
     line-height: 1.5;
   }
-  
+
   .resume__item-details code {
     font-size: 10px;
     padding: 3px 6px;
     margin: 1px;
   }
-  
+
   .footer {
     bottom: 0.5rem;
     right: 0.5rem;

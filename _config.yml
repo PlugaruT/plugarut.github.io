@@ -19,6 +19,13 @@ author:
   location: "Republic of Moldova"
   avatar: "/assets/images/profile.jpeg"
   twitter: "PlugaruTudor"
+  url: "https://plugaru.me"
+  knows_about:
+    - Python
+    - Apache Flink
+    - Apache Kafka
+    - Distributed systems
+    - Stream processing
 
 # Social Media Links
 social:
