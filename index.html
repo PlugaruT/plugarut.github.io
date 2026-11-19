@@ -7,7 +7,7 @@ layout: default
   <div class="nav__links">
     <a href="#about" class="nav__link" id="about-link">About</a>
     <a href="#resume" class="nav__link" id="resume-link">Resume</a>
-    <label class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <label class="theme-toggle" id="theme-toggle">
       <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"/>
         <line x1="12" y1="1" x2="12" y2="3"/>
@@ -27,8 +27,9 @@ layout: default
   </div>
 </nav>
 
+<main>
 <!-- About View (Default) -->
-<main class="main" id="about-view">
+<section class="main" id="about-view" aria-label="About">
   <div class="profile">
     {% if site.author.avatar %}
     <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile__avatar">
@@ -86,10 +87,10 @@ layout: default
       {% endif %}
     </div>
   </div>
-</main>
+</section>
 
 <!-- Resume View -->
-<main class="main" id="resume-view">
+<section class="main" id="resume-view" aria-label="Resume">
   <div class="resume">
     <div class="resume__header">
       <h1 class="resume__name">{{ site.author.name }}</h1>
@@ -144,6 +145,7 @@ layout: default
       {% endfor %}
     </section>
   </div>
+</section>
 </main>
 
 <!-- Footer -->
@@ -157,43 +159,45 @@ layout: default
   const themeCheckbox = document.getElementById('theme-toggle-checkbox');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   
-  // Get saved theme or default to system preference
+  // Explicit choice saved by the toggle, or null to follow the system
   function getSavedTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme;
+    try {
+      const saved = localStorage.getItem('theme');
+      return saved === 'light' || saved === 'dark' ? saved : null;
+    } catch (e) {
+      return null;
     }
-    return prefersDark.matches ? 'dark' : 'light';
   }
-  
-  // Apply theme
-  function applyTheme(theme) {
+
+  // Apply theme (persist only when the user picked it)
+  function applyTheme(theme, persist) {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    
+    if (persist) {
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+    }
+
     // Update checkbox state and aria-label
     const isDark = theme === 'dark';
     themeCheckbox.checked = isDark;
-    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    themeCheckbox.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
   }
-  
+
   // Toggle theme
   function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    applyTheme(newTheme);
+    applyTheme(currentTheme === 'light' ? 'dark' : 'light', true);
   }
-  
+
   // Initialize theme
-  applyTheme(getSavedTheme());
-  
-  // Listen for system theme changes
+  applyTheme(getSavedTheme() || (prefersDark.matches ? 'dark' : 'light'), false);
+
+  // Follow system theme changes unless the user picked one
   prefersDark.addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      applyTheme(e.matches ? 'dark' : 'light');
+    if (!getSavedTheme()) {
+      applyTheme(e.matches ? 'dark' : 'light', false);
     }
   });
-  
+
   // Theme toggle event listener
   themeCheckbox.addEventListener('change', toggleTheme);
 
@@ -206,6 +210,14 @@ layout: default
   // Add js-loaded class to body to enable CSS transitions
   document.body.classList.add('js-loaded');
   
+  // Keep the hidden view out of the tab order and accessibility tree
+  function setActiveView(active, hidden) {
+    active.inert = false;
+    active.removeAttribute('aria-hidden');
+    hidden.inert = true;
+    hidden.setAttribute('aria-hidden', 'true');
+  }
+
   function switchToAbout(updateHash = true) {
     // Animate resume out to the right
     resumeView.classList.remove('main--hidden');
@@ -213,6 +225,7 @@ layout: default
     
     // Animate about in from the left
     aboutView.classList.remove('main--hidden', 'main--hidden-right');
+    setActiveView(aboutView, resumeView);
     
     // Update nav states
     aboutLink.classList.add('nav__link--active');
@@ -231,6 +244,7 @@ layout: default
     
     // Animate resume in from the right
     resumeView.classList.remove('main--hidden', 'main--hidden-right');
+    setActiveView(resumeView, aboutView);
     
     // Update nav states
     resumeLink.classList.add('nav__link--active');
@@ -256,11 +270,13 @@ layout: default
       aboutView.classList.add('main--hidden');
       aboutView.classList.remove('main--hidden-right'); // Clean up any right-hidden state
       resumeLink.classList.add('nav__link--active');
+      setActiveView(resumeView, aboutView);
     } else {
       // Default to about view
       aboutView.classList.remove('main--hidden', 'main--hidden-right');
       resumeView.classList.add('main--hidden-right');
       aboutLink.classList.add('nav__link--active');
+      setActiveView(aboutView, resumeView);
       // Set default hash if none exists
       if (!hash) {
         window.location.hash = 'about';

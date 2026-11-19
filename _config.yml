@@ -1,16 +1,24 @@
 # Site settings
 title: "Tudor Plugaru"
-email: contact@tudor.dev
+email: tudor@plugaru.me
+tagline: "Senior Software Engineer"
 description: >-
-  Go beyond the link in bio. Tell a story.
+  Senior software engineer at Gorgias, building real-time systems with
+  Python, Apache Flink and Apache Kafka.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://plugaru.me" # the base hostname & protocol for your site
+
+# Social card handle (used by jekyll-seo-tag)
+twitter:
+  username: PlugaruTudor
+  card: summary
 
 # Personal Information
 author:
   name: "Tudor Plugaru"
   location: "Republic of Moldova"
   avatar: "/assets/images/profile.jpeg"
+  twitter: "PlugaruTudor"
 
 # Social Media Links
 social:
@@ -68,6 +76,13 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+
+# Default social-card image for all pages (jekyll-seo-tag reads page.image)
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/profile.jpeg
 
 # Exclude from processing
 exclude:
