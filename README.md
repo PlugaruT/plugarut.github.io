@@ -4,8 +4,15 @@ A minimalist Jekyll-based personal profile website with About and Resume section
 
 ## Prerequisites
 
-- Ruby 2.7.0 or higher
+- Ruby 3.3 or higher (matches GitHub Pages; the macOS system Ruby is too old)
 - Bundler gem (`gem install bundler`)
+
+Alternatively, use Docker (no local Ruby needed):
+
+```bash
+docker run --rm -p 4000:4000 -v "$PWD":/srv -w /srv ruby:3.3 \
+  bash -c 'bundle install && bundle exec jekyll serve --host 0.0.0.0'
+```
 
 ## Installation & Setup
 

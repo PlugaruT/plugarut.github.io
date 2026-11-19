@@ -3,10 +3,10 @@
 source "https://rubygems.org"
 
 # GitHub Pages compatibility
-gem "github-pages", "~> 231", group: :jekyll_plugins
+gem "github-pages", "~> 233", group: :jekyll_plugins
 
 # For local development
-gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.9"
 
 # These plugins are automatically included with github-pages gem
 # group :jekyll_plugins do
