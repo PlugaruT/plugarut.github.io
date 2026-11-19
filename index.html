@@ -34,7 +34,7 @@ layout: default
 <section class="main" id="about-view" aria-label="About">
   <div class="profile">
     {% if site.author.avatar %}
-    <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile__avatar">
+    <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile__avatar" width="140" height="140">
     {% endif %}
     
     <div class="profile__bio">
@@ -182,6 +182,7 @@ layout: default
   function renderTheme(mode) {
     const theme = mode === 'system' ? (prefersDark.matches ? 'dark' : 'light') : mode;
     document.documentElement.setAttribute('data-theme', theme);
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#1C1B1A' : '#FFFCF0');
     themeOptions.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.themeOption === mode));
     });

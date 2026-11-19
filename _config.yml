@@ -37,13 +37,13 @@ social:
 
 # Work Experience
 work_experience:
-  - period: "Oct 2020 — Now"
+  - period: "Oct 2020 - Now"
     position: "Senior Software Engineer"
     company: "Gorgias"
     company_url: "https://www.gorgias.com/"
     location: "Remote"
     # details_file: "gorgias.md"
-  - period: "Nov 2018 — Mar 2020"
+  - period: "Nov 2018 - Mar 2020"
     position: "Software Engineer"
     company: "MADE.COM"
     company_url: "https://www.made.com/"
@@ -63,7 +63,7 @@ work_experience:
 
 # Education
 education:
-  - period: "2013 — 2017"
+  - period: "2013 - 2017"
     degree: "Bachelor's degree of Systems and Computer Engineering at Technical University of Moldova"
     location: "Republic of Moldova"
     # project: "Final Research Project: 'Key Performance Indicators Management System'"
